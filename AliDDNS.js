@@ -71,10 +71,10 @@ function GetIP(){
 
     https.get(reqopts, (res)=>{  
         var html=''; 
-        res.on('data',function(data){
+        res.on('data',(data)=>{
             html+=data;  		
         }); 
-        res.on('end',function(){
+        res.on('end',()=>{
             var jsonip = JSON.parse(html);
             if(jsonip.ip == currentip){
                 console.log('无需更新解析记录')
@@ -85,7 +85,7 @@ function GetIP(){
             }
         });  
 
-    }).on('error',function(e){
+    }).on('error',(e)=>{
         console.log(e);
     });
 }
@@ -99,7 +99,7 @@ GetIP();
  */
 var rule = new schedule.RecurrenceRule();
 rule.minute = 45;
-schedule.scheduleJob(rule,function(){
+schedule.scheduleJob(rule,()=>{
     console.log("\n\n\n==========开始检测IP变动==========");
     GetIP();
 });
